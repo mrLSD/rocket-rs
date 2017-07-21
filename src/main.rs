@@ -27,6 +27,12 @@ fn signup() -> Template {
     Template::render("backend/login/signup", &context)
 }
 
+#[get("/forgotpassword")]
+fn forgotpassword() -> Template {
+    let context: HashMap<&str, &str> = HashMap::new();
+    Template::render("backend/login/forgot_password", &context)
+}
+
 // Static files handler
 #[get("/<file..>")]
 fn files(file: PathBuf) -> Option<NamedFile> {
@@ -48,7 +54,7 @@ fn error_internal(_: &Request) -> Template {
 fn main() {
     rocket::ignite()
         .mount("/", routes![
-            hello, files, login, signup
+            hello, files, login, signup, forgotpassword
         ])
         .attach(Template::fairing())
         .catch(errors![error_not_found, error_internal])
