@@ -1,0 +1,66 @@
+{% extends "backend/layouts/auth" %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+	<!-- Page container -->
+	<div class="page-container">
+		<!-- Page content -->
+		<div class="page-content">
+			<!-- Main content -->
+			<div class="content-wrapper">
+				<!-- Advanced login -->
+				<form action="index.html">
+					<div class="panel panel-body login-form">
+						<div class="text-center">
+							<div class="icon-object border-success text-success"><i class="icon-plus3"></i></div>
+							<h5 class="content-group">Create account <small class="display-block">All fields are required</small></h5>
+						</div>
+
+						<div class="form-group has-feedback has-feedback-left">
+							<input type="text" class="form-control" placeholder="Your email">
+							<div class="form-control-feedback">
+								<i class="icon-mention text-muted"></i>
+							</div>
+						</div>
+
+						<div class="form-group has-feedback has-feedback-left">
+							<input type="password" class="form-control" placeholder="Create password">
+							<div class="form-control-feedback">
+								<i class="icon-user-lock text-muted"></i>
+							</div>
+						</div>
+
+						<div class="content-divider text-muted form-group"><span>or sign up with</span></div>
+						<ul class="list-inline form-group list-inline-condensed text-center">
+							<li><a href="#" class="btn border-indigo text-indigo btn-flat btn-icon btn-rounded"><i class="icon-facebook"></i></a></li>
+							<li><a href="#" class="btn border-pink-300 text-pink-300 btn-flat btn-icon btn-rounded"><i class="icon-google"></i></a></li>
+							<li><a href="#" class="btn border-slate-600 text-slate-600 btn-flat btn-icon btn-rounded"><i class="icon-github"></i></a></li>
+							<li><a href="#" class="btn border-info text-info btn-flat btn-icon btn-rounded"><i class="icon-twitter"></i></a></li>
+						</ul>
+
+						<div class="content-divider text-muted form-group"><span>Privacy</span></div>
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" class="styled" checked="checked">
+									Accept <a href="#">Terms of Service</a>
+								</label>
+                            </div>
+
+                            <div class="checkbox">
+								<label>
+									<input type="checkbox" class="styled" checked="checked">
+									Accept our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a>
+								</label>
+							</div>
+						</div>
+						<button type="submit" class="btn bg-teal btn-block btn-lg">Sign up <i class="icon-circle-right2 position-right"></i></button>
+					</div>
+				</form>
+				<!-- /advanced login -->
+			</div>
+			<!-- /main content -->
+		</div>
+		<!-- /page content -->
+	</div>
+	<!-- /page container -->
+{% endblock content %}

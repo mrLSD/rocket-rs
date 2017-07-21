@@ -21,6 +21,12 @@ fn login() -> Template {
     Template::render("backend/login/login", &context)
 }
 
+#[get("/signup")]
+fn signup() -> Template {
+    let context: HashMap<&str, &str> = HashMap::new();
+    Template::render("backend/login/signup", &context)
+}
+
 // Static files handler
 #[get("/<file..>")]
 fn files(file: PathBuf) -> Option<NamedFile> {
@@ -42,7 +48,7 @@ fn error_internal(_: &Request) -> Template {
 fn main() {
     rocket::ignite()
         .mount("/", routes![
-            hello, files, login
+            hello, files, login, signup
         ])
         .attach(Template::fairing())
         .catch(errors![error_not_found, error_internal])
