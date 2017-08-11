@@ -28,10 +28,17 @@ fn error_not_found(_: &Request) -> Template {
     Template::render("error/404", &map)
 }
 
+#[error(500)]
+fn error_internal(_: &Request) -> Template {
+    let mut map: HashMap<&str, &str> = HashMap::new();
+    // map.insert("path", req.uri().as_str());
+    Template::render("error/500", &map)
+}
+
 fn main() {
     rocket::ignite()
         .mount("/", routes![hello, files])
         .attach(Template::fairing())
-        .catch(errors![error_not_found])
+        .catch(errors![error_not_found, error_internal])
         .launch();
 }
