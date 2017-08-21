@@ -6,3 +6,9 @@ authors = ["Evgeny Ukhanov <mrlsd@ya.ru>"]
 [dependencies]
 rocket = "*"
 rocket_codegen = "*"
+# rocket_contrib = "*"
+
+[dependencies.rocket_contrib]
+version = "*"
+default-features = false
+features = ["handlebars_templates", "tera_templates"]
