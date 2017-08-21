@@ -30,7 +30,7 @@ fn error_not_found(_: &Request) -> Template {
 
 fn main() {
     rocket::ignite()
-        .mount("/", routes![hello])
+        .mount("/", routes![hello, files])
         .attach(Template::fairing())
         .catch(errors![error_not_found])
         .launch();
