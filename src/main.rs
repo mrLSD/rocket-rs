@@ -1,3 +1,15 @@
+#![feature(plugin, decl_macro)]
+#![plugin(rocket_codegen)]
+
+extern crate rocket;
+
+#[cfg(test)] mod tests;
+
+#[get("/")]
+fn hello() -> &'static str {
+    "rocket.rs"
+}
+
 fn main() {
-    println!("Hello, world!");
+    rocket::ignite().mount("/", routes![hello]).launch();
 }

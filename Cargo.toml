@@ -4,3 +4,5 @@ version = "0.1.0"
 authors = ["Evgeny Ukhanov <mrlsd@ya.ru>"]
 
 [dependencies]
+rocket = "*"
+rocket_codegen = "*"
