@@ -1,4 +1,4 @@
-{% extends "error/base" %}
+{% extends "errors/base" %}
 {% block title %}Internal server error{% endblock title %}
 {% block error_code %}500{% endblock error_code %}
 {% block error_description %}Oops, an error has occurred. Internal server error!{% endblock error_description %}
