@@ -1,0 +1,7 @@
+{% extends "errors/base" %}
+{% block title %}Page not found{% endblock title %}
+{% block error_code %}422{% endblock error_code %}
+{% block error_description %}
+Unprocessable Entity<br/>
+The request was well-formed but was unable to be followed due to semantic errors.
+{% endblock error_description %}

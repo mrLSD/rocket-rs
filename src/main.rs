@@ -1,4 +1,4 @@
-#![feature(plugin, decl_macro)]
+#![feature(plugin, custom_derive)]
 #![plugin(rocket_codegen)]
 
 extern crate rocket;
@@ -7,8 +7,15 @@ extern crate rocket_contrib;
 use std::path::{Path, PathBuf};
 use std::collections::HashMap;
 use rocket::Request;
-use rocket::response::{NamedFile};
+use rocket::response::{NamedFile, Redirect};
 use rocket_contrib::Template;
+use rocket::request::{Form};
+use rocket::http::RawStr;
+
+#[derive(FromForm)]
+struct LoginForm<'r> {
+    username: &'r RawStr,
+}
 
 #[get("/")]
 fn hello() -> &'static str {
@@ -16,9 +23,15 @@ fn hello() -> &'static str {
 }
 
 #[get("/login")]
-fn login() -> Template {
+fn get_login() -> Template {
     let context: HashMap<&str, &str> = HashMap::new();
     Template::render("backend/login/login", &context)
+}
+
+#[post("/login", data = "<login_form>")]
+fn post_login<'a>(login_form: Form<'a, LoginForm<'a>>) -> Result<Redirect, String> {
+    let _ = login_form.get();
+    Ok(Redirect::to("/"))
 }
 
 #[get("/signup")]
@@ -40,13 +53,19 @@ fn files(file: PathBuf) -> Option<NamedFile> {
 }
 
 #[error(404)]
-fn error_not_found(_: &Request) -> Template {
+fn error_404(_: &Request) -> Template {
     let context: HashMap<&str, &str> = HashMap::new();
     Template::render("errors/404", &context)
 }
 
+#[error(422)]
+fn error_422(_: &Request) -> Template {
+    let context: HashMap<&str, &str> = HashMap::new();
+    Template::render("errors/422", &context)
+}
+
 #[error(500)]
-fn error_internal(_: &Request) -> Template {
+fn error_500(_: &Request) -> Template {
     let context: HashMap<&str, &str> = HashMap::new();
     Template::render("errors/500", &context)
 }
@@ -54,9 +73,11 @@ fn error_internal(_: &Request) -> Template {
 fn main() {
     rocket::ignite()
         .mount("/", routes![
-            hello, files, login, signup, forgotpassword
+            hello, files, get_login, post_login, signup, forgotpassword
         ])
         .attach(Template::fairing())
-        .catch(errors![error_not_found, error_internal])
+        .catch(errors![
+            error_404, error_422, error_500
+        ])
         .launch();
 }
